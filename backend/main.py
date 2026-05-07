@@ -1,5 +1,6 @@
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import projects, geo
 
 app = FastAPI(
     title="UrbanEye API",
@@ -15,6 +16,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(projects.router)
+app.include_router(geo.router)
 
 @app.get("/")
 def read_root():
